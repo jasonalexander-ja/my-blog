@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useMemo, useState } from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import { ThemeProvider } from '@mui/material';
+import CssBaseline from '@mui/material/CssBaseline';
+
+import { AppContext, ContextModel } from './AppContext';
+import { getTheme } from './theme';
+
+import Layout from './Shared/Layout';
+
+
+const App = () => {
+	const defaultDm = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+	const [darkMode, setDarkMode] = useState(defaultDm);
+
+	const toggleDarkMode = useMemo(() => () => setDarkMode(o => !o), [setDarkMode]);
+
+	const appContext = useMemo(() => new ContextModel(toggleDarkMode, darkMode), [toggleDarkMode, darkMode]);
+	const theme = useMemo(
+		() => getTheme(darkMode),
+		[darkMode],
+	);
+
+	return (
+		<AppContext.Provider value={appContext}>
+			<ThemeProvider theme={theme}>
+				<CssBaseline />
+				<>
+					{Layout}
+				</>
+			</ThemeProvider>
+		</AppContext.Provider>
+	);
+};
 
 export default App;
