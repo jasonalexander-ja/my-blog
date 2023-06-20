@@ -333,7 +333,7 @@ const FingerBoxCreator = () => {
 						<Button
 							variant="contained"
 							onClick={downloadSvg}
-							disabled={!vectors}
+							disabled={vectors.length <= 0}
 							fullWidth={true}
 							color='secondary'
 						>
