@@ -37,6 +37,31 @@ const InfoCard = () => {
 		</Grid>
 	</>;
 
+	const linkButtons = 
+	<>
+		<IconButton 
+			size="small" 
+			color="primary"
+			onClick={() => { window.location.href = "https://www.linkedin.com/in/json-alexander"; }}
+		>
+			<LinkedInIcon />
+		</IconButton>
+		<IconButton 
+			size="small" 
+			color="primary"
+			onClick={() => { window.location.href =  "https://github.com/jasonalexander-ja"; }}
+		>
+			<GitHubIcon />
+		</IconButton>
+		<IconButton 
+			size="small" 
+			color="primary"
+			onClick={() => { window.location.href =  "https://t.me/crashtestdev"; }}
+		>
+			<TelegramIcon />
+		</IconButton>
+	</>;
+
 	return (
 		<Grid item md={11} xs={12}>
 			<Card>
@@ -56,27 +81,7 @@ const InfoCard = () => {
 							</Typography>
 						</Grid>
 						<Grid item xs={12}>
-							<IconButton 
-								size="small" 
-								color="primary"
-								onClick={() => { window.location.href = "https://www.linkedin.com/in/json-alexander"; }}
-							>
-								<LinkedInIcon />
-							</IconButton>
-							<IconButton 
-								size="small" 
-								color="primary"
-								onClick={() => { window.location.href =  "https://github.com/jasonalexander-ja"; }}
-							>
-								<GitHubIcon />
-							</IconButton>
-							<IconButton 
-								size="small" 
-								color="primary"
-								onClick={() => { window.location.href =  "https://t.me/crashtestdev"; }}
-							>
-								<TelegramIcon />
-							</IconButton>
+							{linkButtons}
 						</Grid>
 					</Grid>
 				</CardActions>

@@ -3,6 +3,8 @@ import React from "react";
 import Home from "./Home";
 import About from "./About";
 
+import FingerBoxCreator from "./FingerBoxCreator";
+
 
 export const Routes = [
 	{
@@ -12,5 +14,9 @@ export const Routes = [
 	{
 		path: "/about",
 		element: <About />
+	},
+	{
+		path: "/FingerBoxCreator",
+		element: <FingerBoxCreator />
 	}
 ];

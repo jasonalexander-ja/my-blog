@@ -44,7 +44,7 @@ const AppBar = ({
 	setDrawerOpen
 }: AppBarProps) => {
 	const context = useContext(AppContext);
-	// const handleDrawerClose: () => void = () => setDrawerOpen(!drawerOpen);
+	
 	const navigate = useNavigate();
 	const toggleDarkMode = () => context.toggleDarkMode();
 
