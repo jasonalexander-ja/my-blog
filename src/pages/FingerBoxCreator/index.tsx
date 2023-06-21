@@ -4,12 +4,12 @@ import {
 	Container,
 	Grid,
 	Card,
-	CardActions,
 	CardContent,
 	TextField,
 	Button,
 	Typography,
-	InputAdornment
+	InputAdornment,
+	Slider
 } from '@mui/material';
 
 type ChangedProps = React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>;
@@ -17,6 +17,8 @@ type SetNumberState = React.Dispatch<React.SetStateAction<number>>;
 type Vector = [[number, number], [number, number]];
 
 const FingerBoxCreator = () => {
+	const minTabSize = 3;
+
 	const [length, setLength] = useState(115);
 	const [width, setWidth] = useState(115);
 	const [height, setHeight] = useState(115);
@@ -34,6 +36,21 @@ const FingerBoxCreator = () => {
 
 	let CanvasHeightMM = useMemo(() => length + (height * 2) + 30, [length, height]);
 	let CanvasWidthMM = useMemo(() => (Math.max(length, width, height) * 2) + 20, [length, width, height]);
+
+	const maxTabSize = useMemo(() => Math.min(length, width, height) / 2, [length, width, height]);
+
+	const validTabSizes = useMemo(() => {
+		let values = [];
+		let minValue = Math.min(length, width, height) / 2;
+		for (let i = minTabSize; i <= minValue; i += 0.5) {
+			const tabsLength = Math.floor(length / i);
+			const tabsWidth = Math.floor(width / i);
+			const tabsHeight = Math.floor(height / i);
+			const evenTabError = tabsLength % 2 === 0 || tabsWidth % 2 === 0 || tabsHeight % 2 === 0;
+			if (!evenTabError) values.push(i);
+		}
+		return values;
+	}, [length, width, height]);
 
 	const evenTabError = tabsLength % 2 === 0 || tabsWidth % 2 === 0 || tabsHeight % 2 === 0;
 
@@ -225,159 +242,154 @@ const FingerBoxCreator = () => {
 	}
 
 
-	return <Grid item container md={11} xs={12}>
-		<Card>
-			<CardContent>
-				<Grid spacing={2} container>
-					<Grid item xs={12} sm={6} md={4}>
-						<TextField
-							fullWidth
-							label="Length"
-							size='small'
-							inputProps={{ inputMode: 'decimal' }}
-							value={length}
-							error={isError("length")}
-							helperText={errMsg("length")}
-							onChange={numberValueChanged(setLength, "length")}
-							InputProps={{
-								endAdornment: <InputAdornment position="end">mm</InputAdornment>,
-							}}
+	return <>
+		<Grid item xs={12} sm={6} md={4}>
+			<TextField
+				fullWidth
+				label="Length"
+				size='small'
+				inputProps={{ inputMode: 'decimal' }}
+				value={length}
+				error={isError("length")}
+				helperText={errMsg("length")}
+				onChange={numberValueChanged(setLength, "length")}
+				InputProps={{
+					endAdornment: <InputAdornment position="end">mm</InputAdornment>,
+				}}
+			/>
+		</Grid>
+		<Grid item xs={12} sm={6} md={4}>
+			<TextField
+				fullWidth
+				label="Width"
+				size='small'
+				inputProps={{ inputMode: 'decimal' }}
+				value={width}
+				error={isError("width")}
+				helperText={errMsg("width")}
+				onChange={numberValueChanged(setWidth, "width")}
+				InputProps={{
+					endAdornment: <InputAdornment position="end">mm</InputAdornment>,
+				}}
+			/>
+		</Grid>
+		<Grid item xs={12} sm={6} md={4}>
+			<TextField
+				fullWidth
+				label="Height"
+				size='small'
+				inputProps={{ inputMode: 'decimal' }}
+				value={height}
+				error={isError("height")}
+				helperText={errMsg("height")}
+				onChange={numberValueChanged(setHeight, "height")}
+				InputProps={{
+					endAdornment: <InputAdornment position="end">mm</InputAdornment>,
+				}}
+			/>
+		</Grid>
+		<Grid item xs={12} sm={6} md={2}>
+			<TextField
+				fullWidth
+				label="Material Thickness"
+				size='small'
+				inputProps={{ inputMode: 'decimal' }}
+				value={thickness}
+				error={isError("thickness")}
+				helperText={errMsg("thickness")}
+				onChange={numberValueChanged(setThickness, "thickness")}
+				InputProps={{
+					endAdornment: <InputAdornment position="end">mm</InputAdornment>,
+				}}
+			/>
+		</Grid>
+		<Grid item xs={12} sm={6} md={2}>
+			<TextField
+				fullWidth
+				label="Taper"
+				size='small'
+				inputProps={{ inputMode: 'decimal' }}
+				value={taper}
+				error={isError("deviation")}
+				helperText={errMsg("deviation")}
+				onChange={numberValueChanged(setTaper, "deviation")}
+				InputProps={{
+					endAdornment: <InputAdornment position="end">mm</InputAdornment>,
+				}}
+			/>
+		</Grid>
+		<Grid item xs={12} sm={6} md={4} spacing={2} container alignItems="center">
+			<Grid item xs={12} container alignItems="center">
+				<Typography>Tab size: {tabSize}mm</Typography>
+				<Slider
+					sx={{ marginX: 0.5 }}
+					size="small"
+					step={null}
+					valueLabelDisplay="auto"
+					marks={validTabSizes.map(v => ({ value: v, label: '' }))}
+					value={tabSize}
+					onChange={(e, v) => !Array.isArray(v) ? setTabSize(v) : {}}
+					min={minTabSize}
+					max={Math.max(...validTabSizes)}
+				/>
+			</Grid>
+		</Grid>
+		<Grid item xs={12} sm={6} md={2} container alignItems="center" justifyContent="flex-end">
+			<Button
+				size='small'
+				variant="contained"
+				onClick={generate}
+				disabled={evenTabError}
+				fullWidth={true}
+			>
+				Generate
+			</Button>
+		</Grid>
+		<Grid item xs={12} sm={6} md={2} container alignItems="center" justifyContent="flex-end">
+			<Button
+				size='small'
+				variant="contained"
+				onClick={downloadSvg}
+				disabled={vectors.length <= 0}
+				fullWidth={true}
+				color='secondary'
+			>
+				Download
+			</Button>
+		</Grid>
+		<Grid item xs={12} container>
+			<Typography variant="caption">
+				Tabs length: {tabsLength} &nbsp;
+				Tabs height: {tabsHeight} &nbsp;
+				Tabs width: {tabsWidth} &nbsp;
+				{evenTabError ? 
+					<Typography variant="caption" color="secondary">
+						MUST ALL BE ODD
+					</Typography>
+					: <></>
+				}
+			</Typography>
+		</Grid>
+		<Grid item xs={12} container justifyContent='center'>
+		{vectors.length > 0 ? 
+			<svg style={{ height: `${CanvasHeightMM}`, width: `${CanvasWidthMM}` }}>
+				{
+					vectors.map(v => {
+						let [[x1, y1], [x2, y2]] = v;
+						return <line 
+							key={`x1${x1}y1${y1}x2${x2}y2${y2}`}
+							x1={x1}
+							y1={y1}
+							x2={x2}
+							y2={y2}
+							style={{stroke: "rgb(255,0,0)", strokeWidth: 1}} 
 						/>
-					</Grid>
-					<Grid item xs={12} sm={6} md={4}>
-						<TextField
-							fullWidth
-							label="Width"
-							size='small'
-							inputProps={{ inputMode: 'decimal' }}
-							value={width}
-							error={isError("width")}
-							helperText={errMsg("width")}
-							onChange={numberValueChanged(setWidth, "width")}
-							InputProps={{
-								endAdornment: <InputAdornment position="end">mm</InputAdornment>,
-							}}
-						/>
-					</Grid>
-					<Grid item xs={12} sm={6} md={4}>
-						<TextField
-							fullWidth
-							label="Height"
-							size='small'
-							inputProps={{ inputMode: 'decimal' }}
-							value={height}
-							error={isError("height")}
-							helperText={errMsg("height")}
-							onChange={numberValueChanged(setHeight, "height")}
-							InputProps={{
-								endAdornment: <InputAdornment position="end">mm</InputAdornment>,
-							}}
-						/>
-					</Grid>
-					<Grid item xs={12} sm={6} md={4}>
-						<TextField
-							fullWidth
-							label="Material Thickness"
-							size='small'
-							inputProps={{ inputMode: 'decimal' }}
-							value={thickness}
-							error={isError("thickness")}
-							helperText={errMsg("thickness")}
-							onChange={numberValueChanged(setThickness, "thickness")}
-							InputProps={{
-								endAdornment: <InputAdornment position="end">mm</InputAdornment>,
-							}}
-						/>
-					</Grid>
-					<Grid item xs={12} sm={6} md={2}>
-						<TextField
-							fullWidth
-							label="Tab Size"
-							size='small'
-							inputProps={{ inputMode: 'decimal' }}
-							value={tabSize}
-							error={isError("tabSize")}
-							helperText={errMsg("tabSize")}
-							onChange={numberValueChanged(setTabSize, "tabSize")}
-							InputProps={{
-								endAdornment: <InputAdornment position="end">mm</InputAdornment>,
-							}}
-						/>
-					</Grid>
-					<Grid item xs={12} sm={6} md={2}>
-						<TextField
-							fullWidth
-							label="Taper"
-							size='small'
-							inputProps={{ inputMode: 'decimal' }}
-							value={taper}
-							error={isError("deviation")}
-							helperText={errMsg("deviation")}
-							onChange={numberValueChanged(setTaper, "deviation")}
-							InputProps={{
-								endAdornment: <InputAdornment position="end">mm</InputAdornment>,
-							}}
-						/>
-					</Grid>
-					<Grid item xs={12} md={2} justifyContent="flex-end">
-						<Button
-							variant="contained"
-							onClick={generate}
-							disabled={evenTabError}
-							fullWidth={true}
-						>
-							Generate
-						</Button>
-					</Grid>
-					<Grid item xs={12} md={2} justifyContent="flex-end">
-						<Button
-							variant="contained"
-							onClick={downloadSvg}
-							disabled={vectors.length <= 0}
-							fullWidth={true}
-							color='secondary'
-						>
-							Download
-						</Button>
-					</Grid>
-					<Grid item xs={12} container>
-						<Typography variant="caption">
-							Tabs length: {tabsLength} &nbsp;
-							Tabs height: {tabsHeight} &nbsp;
-							Tabs width: {tabsWidth} &nbsp;
-							{evenTabError ? 
-								<Typography variant="caption" color="secondary">
-									MUST ALL BE ODD
-								</Typography>
-								: <></>
-							}
-						</Typography>
-					</Grid>
-					<Grid item xs={12} container justifyContent='center'>
-					{vectors.length > 0 ? 
-						<svg style={{ height: `${CanvasHeightMM}`, width: `${CanvasWidthMM}` }}>
-							{
-								vectors.map(v => {
-									let [[x1, y1], [x2, y2]] = v;
-									return <line 
-										key={`x1${x1}y1${y1}x2${x2}y2${y2}`}
-										x1={x1}
-										y1={y1}
-										x2={x2}
-										y2={y2}
-										style={{stroke: "rgb(255,0,0)", strokeWidth: 1}} 
-									/>
-								})
-							}
-						</svg> : <></>
-					}
-					</Grid>
-				</Grid>
-			</CardContent>
-			<CardActions>
-			</CardActions>
-		</Card>
-	</Grid>;
+					})
+				}
+			</svg> : <></>
+		}
+		</Grid>
+	</>;
 };
 
 
@@ -391,7 +403,15 @@ const HomePage = () => {
 				sx={{ padding: 2 }}
 				spacing={2}
 			>
-				<FingerBoxCreator />
+				<Grid item container md={11} xs={12}>
+					<Card>
+						<CardContent>
+							<Grid spacing={2}  alignItems="center" container>
+								<FingerBoxCreator />
+							</Grid>
+						</CardContent>
+					</Card>
+				</Grid>
 			</Grid>
 		</Container>
 	);
