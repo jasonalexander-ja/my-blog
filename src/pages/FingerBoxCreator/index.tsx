@@ -23,7 +23,7 @@ const FingerBoxCreator = () => {
 	const [width, setWidth] = useState(115);
 	const [height, setHeight] = useState(115);
 	const [tabSize, setTabSize] = useState(10);
-	const [taper, setTaper] = useState(0.5);
+	const [taper, setTaper] = useState(0.25);
 	const [thickness, setThickness] = useState(3);
 
 	const [errors, setErrors] = useState<Map<string, [boolean, string]>>(new Map());
