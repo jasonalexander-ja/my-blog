@@ -15,7 +15,7 @@ const Boxes = () => {
     const cards = [
         <Card sx={{ minWidth: 275 }} key="TaperedTabBoxGen">
             <CardContent>
-                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                <Typography sx={{ fontSize: 14 }} color="secondary" gutterBottom>
                     Projects
                 </Typography>
                 <Typography variant="h5" component="div">
