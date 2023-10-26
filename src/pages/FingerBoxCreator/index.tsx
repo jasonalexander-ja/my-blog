@@ -406,7 +406,7 @@ const HomePage = () => {
 				<Grid item container md={11} xs={12}>
 					<Card>
 						<CardContent>
-							<Grid spacing={2}  alignItems="center" container>
+							<Grid spacing={2} alignItems="center" container>
 								<FingerBoxCreator />
 							</Grid>
 						</CardContent>
