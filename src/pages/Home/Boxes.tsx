@@ -14,7 +14,7 @@ const Boxes = () => {
     const navigate = useNavigate();
 
     const cards = [
-        <Card key="TaperedTabBoxGen">
+        <Card>
             <CardContent>
                 <Typography sx={{ fontSize: 14 }} color="secondary" gutterBottom>
                     Projects
@@ -38,7 +38,7 @@ const Boxes = () => {
                 </Button>
             </CardActions>
         </Card>,
-        <Card key="TaperedTabBoxGen">
+        <Card>
             <CardContent>
                 <Typography sx={{ fontSize: 14 }} color="primary" gutterBottom>
                     Article

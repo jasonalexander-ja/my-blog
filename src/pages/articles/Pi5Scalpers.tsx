@@ -48,7 +48,7 @@ const Pi5Scalpers = () => {
             <Typography gutterBottom={false} variant="body1">
                 At the time of writing the Pi 5 has officially been available for just 3 days, a recent Tom's Hardware article 
                 made the surprising claim that the cost of the Raspberry Pi has been increased to "109% Above MSRP", here I dig into 
-                a as many ebay listings I can find at the time and investigate what scalpers there are and what effect they are 
+                as many ebay listings I can find at the time and investigate what scalpers there are and what effect they are 
                 having. 
             </Typography>
         </Grid>
