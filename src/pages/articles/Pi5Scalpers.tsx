@@ -1,4 +1,3 @@
-import React, { useState, useMemo } from 'react';
 
 import {
 	Container,
@@ -21,7 +20,7 @@ const Pi5Scalpers = () => {
         </Grid>
         <Grid item xs={12} sx={{ paddingTop: '8px!important' }}>
             <Typography gutterBottom={false} color="secondary" sx={{ textAlign: "center" }} variant="body1">
-                A response to a Tom's Hardware article <Link color="secondary" href="https://www.tomshardware.com/news/raspberry-pi-5-scalpers-push-prices-up-to-109-above-msrp">"Raspberry Pi 5 Scalpers Push Prices Up to 109% Above MSRP".</Link>
+                A response to a Tom's Hardware article <Link href="https://www.tomshardware.com/news/raspberry-pi-5-scalpers-push-prices-up-to-109-above-msrp">"Raspberry Pi 5 Scalpers Push Prices Up to 109% Above MSRP".</Link>
             </Typography>
             <Divider />
         </Grid>
@@ -34,7 +33,7 @@ const Pi5Scalpers = () => {
         
         <Grid item xs={12}>
             <Typography gutterBottom={false} variant="body1">
-                Disclaimer that this article may age terribly. 
+                Disclaimer, this article probably will age terribly. 
             </Typography>
         </Grid>
         
@@ -48,18 +47,17 @@ const Pi5Scalpers = () => {
             <Typography gutterBottom={false} variant="body1">
                 At the time of writing the Pi 5 has officially been available for just 3 days, a recent Tom's Hardware article 
                 made the surprising claim that the cost of the Raspberry Pi has been increased to "109% Above MSRP", here I dig into 
-                as many ebay listings I can find at the time and investigate what scalpers there are and what effect they are 
-                having. 
+                as many eBay listings I can find at the time and investigate what how many scalpers there are and what they are up to. 
             </Typography>
         </Grid>
 
         <Grid item xs={12}>
             <Typography gutterBottom={false} variant="body1">
                 With, at the time of writing, fewer than 10 eBay listings for Pi 5s, this was actually fairly easy, 
-                not a single completed listing nor a single listing that reported to have multiple units in stock, 
+                not a single completed listing, nor any listing that reported to have multiple units in stock... 
                 actually had any stock, with every single one either being labelled a "preorder", or stating in the 
-                description that they will ship as soon as their stock will arrive by x date, most of these scalpers 
-                are managing to scalp preorders which is novel.  
+                description that they will ship as soon as their stock will arrive by x date, almost all of these scalpers 
+                are actually scalping preorders. 
             </Typography>
         </Grid>
         
@@ -75,19 +73,44 @@ const Pi5Scalpers = () => {
                 reporting multiple units for sale, claiming they will have their stock ready for shipment on October 31st. 
                 Still, more curiously they only report 5-10 units for sale of the 4GB and 8GB models respectively. Given this 
                 relatively low number and the end of October is when supposedly <Link color="secondary" href="</Link>"> the first standard preorder 
-                batch will ship,</Link> I feel that it is most likely this seller used multiple payment methods and shipment 
-                addresses and even possibly friends and family as proxies to get around the 1 preorder per person rule, and 
-                further, I think that their reported shipment date of 31st of October is extremely wishful thinking and this will 
-                ultimately end badly for them. 
+                batch will ship.</Link> 
             </Typography>
         </Grid>
 
         <Grid item xs={12}>
             <Typography gutterBottom={false} variant="body1">
-                Beyond this single reseller and a scattering of people selling preorders for single units (few enough that any effects on the preorder
-                queues are doubtful), I can only find 2 people who appear to actually be selling units they actually have, both listings are from the
-                22nd of October (1 day before the official launch on the 23rd), this can be expected from priority boarding preorders, I myself
-                received my Pi 5 on the 21st. 
+                I feel that it is most likely this seller used multiple payment methods and shipment addresses and even possibly 
+                friends and family as proxies to get around the 1 preorder per person rule, and further, I think that their reported 
+                shipment date of 31st of October is extremely wishful thinking and this will ultimately end badly for them and their customers. 
+            </Typography>
+        </Grid>
+        
+        <Grid item xs={12}>
+            <Typography gutterBottom={false} color="primary" variant="subtitle1">
+                Tactics?
+            </Typography>
+        </Grid>
+
+        <Grid item xs={12}>
+            <Typography gutterBottom={false} variant="body1">
+                But of course in theory if enough scalpers were to fill up the early preorder slots with multiple preorders, even with single units, 
+                this could affect the delivery queues, potentially effecting the overall cost, but it is worth remembering that the preorder system 
+                has checks in place to prevent multiple orders from one person, this would in throry make it a lot of work and coordination to really 
+                make a sigificant profit from scalping, in theory deterring scalping, and this shows in the relatively low numbers. 
+            </Typography>
+        </Grid>
+        
+        <Grid item xs={12}>
+            <Typography gutterBottom={false} color="primary" variant="subtitle1">
+                The Others
+            </Typography>
+        </Grid>
+
+        <Grid item xs={12}>
+            <Typography gutterBottom={false} variant="body1">
+                Beyond this single reseller and a scattering of people selling preorders for single units, I can only find 2 people who appear to 
+                actually be selling units they actually have, both listings are from the 22nd of October (1 day before the official launch on the 23rd), 
+                this can be expected from priority boarding preorders, I myself received my Pi 5 on the 21st. 
             </Typography>
         </Grid>
 
@@ -125,12 +148,18 @@ const Pi5Scalpers = () => {
                 with not enough in total to have any effect on the preorder queues, a single one was able to scalp multiple 
                 preorders but still also in low enough quantities where any affect the preorder queues is still unlikely, and 
                 they are further unlikely to be able to fulfil their purchases any nearly on time; 2 were selling units that they 
-                actually had, and one of these on the surface appeared to have no ill intent, this leads me to believe that currently, 
-                the scalping we are seeing is almost a non-issue compared to the supply chain busting behaviour we have seen 
-                previously in the Raspberry Pi space.
+                actually had, and one of these on the surface appeared to have no ill intent.
             </Typography>
         </Grid>
         
+
+        <Grid item xs={12}>
+            <Typography gutterBottom={false} variant="body1">
+                This leads me to believe that currently, the scalping we are seeing is almost a non-issue compared to the supply 
+                chain busting behaviour we have seen previously in the Raspberry Pi SBC space.
+            </Typography>
+        </Grid>
+
         <Grid item xs={12}>
             <Typography gutterBottom={false} color="primary" variant="h6">
                 Thoughts
@@ -145,6 +174,22 @@ const Pi5Scalpers = () => {
                 incredibly far from the trend that the Tom's Hardware article makes it out to be and making the article feel quite misleading. 
             </Typography>
         </Grid>
+
+        
+        <Grid item xs={12}>
+            <Typography gutterBottom={false} color="primary" variant="subtitle1">
+                Further Disclaimer
+            </Typography>
+        </Grid>
+
+
+        <Grid item xs={12}>
+            <Typography gutterBottom={false} variant="body1">
+                Although in my conclusion I'm quite opposed to the original article's reporting, I generally find Tom's Hardware and the article's 
+                author to be a pretty reliable source of information, this is just a relatively small snag that made me jump into the abyss for a while. 
+            </Typography>
+        </Grid>
+
     </>;
 }
 
